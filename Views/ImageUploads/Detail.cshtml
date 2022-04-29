@@ -1,0 +1,39 @@
+@model Image 
+
+@{
+    int? uid = Context.Session.GetInt32("UserId");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="~/css/details.css">
+</head>
+
+<body class="color-ivory">
+    <div class="text-center">
+        <h2 class="text-center">@Model.Title</h2>
+        <img class="text-center" style="width: 75%; height: 75%;" src= "~/Images/@Model.ImageName"/>
+        <div>
+            <div>
+                <p>Comment: @Model.Comment</p>
+            </div>
+            <div>
+                <p>By: @Model.Uploader.FullName()</p>
+            </div>
+            <div class="action">
+                @if (@Model.UserId == uid)
+                {
+                    <form asp-controller="ImageUploads" asp-action="Delete" asp-route-imageId="@Model.ImageId" method="POST">
+                        <button style = "border-radius: 5px; background-color: red;">Delete</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+    </div>
+</body>

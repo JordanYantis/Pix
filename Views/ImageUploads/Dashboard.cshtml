@@ -15,8 +15,28 @@
     @foreach (var img in Model)
     {
         
-        <div style="border-radius: 25px;" class="card shadow w-75 mb-3 mx-auto">
-            <img style="border-top-left-radius: 25px;border-top-right-radius: 25px;" src= "~/Images/@img.ImageName"/>
+        <div  style="border-radius: 25px;" class="card shadow w-75 mb-3 mx-auto">
+            <a href="/images/@img.ImageId">
+                <img class= "DashImg" style="width: 100%; height: 75%; border-top-left-radius: 25px;border-top-right-radius: 25px;" src= "~/Images/@img.ImageName"/>
+            </a>
+
+            @* <button id= "open">
+                <img  style="width: 100%; height: 100%; border-top-left-radius: 25px;border-top-right-radius: 25px;" src= "~/Images/@img.ImageName"/>
+            </button>
+            <div class="modal-container" id="modal_container">
+                <div id="modal">
+                    <img id= "close" style="width: 100%; height: 100%; border-top-left-radius: 25px;border-top-right-radius: 25px;" src= "~/Images/@img.ImageName"/>
+                    <div style="border-bottom-left-radius: 25px;border-bottom-right-radius: 25px" class="color-lightblue card-body">
+                        @if (@img.Comment != null)
+                        {
+                            <p class="card-text"> Comment: <br>
+                            @img.Comment</p>
+                        }
+                        <small class="text-muted">Submitted by: @img.Uploader.FullName() at @img.CreatedAt</small>
+                    </div>
+                </div>
+            </div> *@
+            
             <div style="border-bottom-left-radius: 25px;border-bottom-right-radius: 25px" class="color-lightblue card-body">
                 @if (@img.Comment != null)
                 {
@@ -28,6 +48,18 @@
         </div>
     }
 </table>
+@* <script>
+    const open = document.getElementById("open");
+    const modal_container = document.getElementById("modal_container");
+    const close = document.getElementById("close");
 
+    open.addEventListener('click', () => {
+        modal_container.classList.add("show");
+    });
+
+    close.addEventListener('click', () => {
+        modal_container.classList.remove("show");
+    });
+</script> *@
 </body>
 </html>

@@ -62,6 +62,22 @@ namespace Pix.Controllers
             return View();
         }
 
+        [HttpGet("/images/{ImageId}")]
+        public IActionResult Detail(int imageId)
+        {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Image image = db.Images.Include(i => i.Uploader).FirstOrDefault(i => i.ImageId == imageId);
+            if (image == null)
+            {
+                return RedirectToAction("DashBoard");
+            }
+
+            return View("Detail", image);
+        }
+
 
         /* ---------------------------------------------------------------------+
         |                   POST REQUESTS                                       |
@@ -92,6 +108,25 @@ namespace Pix.Controllers
             return RedirectToAction("AllImages");
         }
 
+        [HttpPost("/images/{ImageId}/delete")]
+        public IActionResult Delete(int imageId)
+        {
+            if (uid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Image image = db.Images.FirstOrDefault(t => t.ImageId == imageId);
+
+            if (image == null || image.UserId != uid)
+            {
+                return RedirectToAction("AllImages");
+            }
+
+            db.Images.Remove(image);
+            db.SaveChanges();
+            return RedirectToAction("AllImages");
+        }
 
 
 

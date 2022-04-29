@@ -38,3 +38,18 @@
 .text-orange{
     color: #E77728;
 }
+
+
+img:hover {
+    transform: scale(1.05);
+}
+
+/* .modal-container{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-container.show {
+    pointer-events: auto;
+    opacity: 1;
+} */
