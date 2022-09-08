@@ -47,6 +47,12 @@ namespace Pix.Models
             return FirstName + " " + LastName;
         }
 
+        //Relationships
+
+        //1 user: many albums
+        public List<Album> CreatedAlbums {get;set;}
+
+      
         /* 
         Relationships and navigation properties. Navigation properties are the
         properties that have another model as their data type.

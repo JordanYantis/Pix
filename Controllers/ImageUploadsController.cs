@@ -49,8 +49,18 @@ namespace Pix.Controllers
                 .Include(i => i.ImageUserLikes)
                 .OrderByDescending(t => t.CreatedAt)
                 .ToList();
+                // ViewBag.result = result;
+
+                var user = db.Users
+                .FirstOrDefault(a => a.UserId == HttpContext.Session.GetInt32("UserId"));
+                ViewBag.user = user;
+
+                 List<Album> allalbums = db.Albums
+                .Where(a => a.UserId == HttpContext.Session.GetInt32("UserId"))
+                .ToList();
+                ViewBag.AllAlbums = allalbums;
                 
-                return View("Dashboard", result);
+                return View("Dashboard",result);
             }
             
             return View("Index");
@@ -107,6 +117,20 @@ namespace Pix.Controllers
             return RedirectToAction("AddImg");
         }
 
+            [HttpPost("/images/{imageId}/addImageToAlbum")]
+           public IActionResult AddImageToAlbum(int imageId, [FromForm] int albumId)
+           {
+               AlbumImageJoin join = new AlbumImageJoin();
+               join.ImageId = imageId;
+               join.AlbumId = albumId;
+
+               db.AlbumImageJoins.Add(join);
+               db.SaveChanges();
+               
+               return RedirectToAction("AllImages");
+
+           }
+           
         [HttpPost("/images/{imageId}/like")]
         public IActionResult Like(int imageId)
         {

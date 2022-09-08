@@ -43,6 +43,9 @@ namespace Pix.Models
         public int UserId { get; set; }
         public User Uploader { get; set; }
 
+        //ManyToMany
+
+        public List<AlbumImageJoin> AlbumImageJoins {get;set;}
         // Many User to Many Image for LIKING images
         public List<ImageUserLike> ImageUserLikes { get; set; }
     }

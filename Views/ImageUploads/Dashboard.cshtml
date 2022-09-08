@@ -1,5 +1,6 @@
 @model IEnumerable<Image>
 
+
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -7,6 +8,8 @@
 @{
     int? uid = Context.Session.GetInt32("UserId");
 }
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +19,15 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="~/css/colortheme.css">
 </head>
+
 <body class="color-ivory">
+
+
+<h1>Welcome @ViewBag.user.FirstName</h1>
+
     
+<table class= "table">
+
 
     @foreach (var img in Model)
     {
@@ -31,6 +41,18 @@
                     <p class="card-text"> Comment: <br>
                     @img.Comment</p>
                 }
+                <small class="text-muted">Submitted by: @img.Uploader.FullName() at @img.CreatedAt</small>
+                <span>Add your picture to any album! If you want lol</span>
+                <label>Select Album:</label>
+                <form asp-controller = "ImageUploads" asp-action= "AddImageToAlbum" asp-route-imageId="@img.ImageId" method="POST">
+                    <select name="albumId">
+                        @foreach (var albums in ViewBag.AllAlbums)
+                        {
+                            <option value="@albums.AlbumId">@albums.AlbumName</option>
+                        }
+                    </select>
+                    <button type="submit">Add to Album!</button>
+                </form>
 
                 <div class="card-footer">
                     <div>
