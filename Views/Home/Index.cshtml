@@ -11,14 +11,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login/Registration</title>
     <link rel="stylesheet" href="~/css/colortheme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
+
+<script>
+    function pulse(newAnimation) {
+        const elem = document.getElementById('pulse');
+        elem.className = newAnimation;
+    }
+    function revert(clrAnimation) {
+        const elem = document.getElementById('pulse');
+        elem.className = clrAnimation;
+    }
+    function magnify(newHeight) {
+        const elem = document.getElementById('navbar');
+        elem.style = newHeight;
+    }
+</script>
+
 <body class="color-ivory">
 
     <div class="container">
         <h1 class="text-center">Welcome</h1>
         <hr>
 
-        <div style="border: 3px solid black;border-radius: 15px; padding: 20px" class="row mt-5 color-lightblue">
+        <div onmouseenter="pulse('row mt-5 color-lightblue animate__animated animate__pulse')"
+            onmouseleave="revert('row mt-5 color-lightblue')" id="pulse" style="border: 3px solid black;border-radius: 15px; padding: 20px" class="row mt-5 color-lightblue animate__animated animate__bounce">
             <div class="col-md">
                 <partial name="_Register"></partial>
             </div>
